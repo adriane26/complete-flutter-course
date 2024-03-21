@@ -4,10 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:go_router/go_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
+  // ensure URL changes in the address bar when using push / pushNamed
+  // more info here: https://docs.google.com/document/d/1VCuB85D5kYxPR3qYOjVmw8boAGKb7k62heFyfFHTOvw/edit
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   // * Register error handlers. For more info, see:
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
@@ -30,7 +34,7 @@ void registerErrorHandlers() {
   ErrorWidget.builder = (FlutterErrorDetails details) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Color(0xFFFF00E4),
         title: Text('An error occurred'.hardcoded),
       ),
       body: Center(child: Text(details.toString())),
