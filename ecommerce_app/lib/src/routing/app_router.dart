@@ -24,7 +24,7 @@ enum AppRoutes {
 
 final goRouter = GoRouter(
     initialLocation: '/',
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: false,
     routes: [
       GoRoute(
           path: '/',
@@ -36,10 +36,11 @@ final goRouter = GoRouter(
               name: AppRoutes.cart.name,
               // builder will use the default page transitions
               // builder: (context, state) => const ShoppingCartScreen(),
-              pageBuilder: (context, state) => MaterialPage(
-                key: state.pageKey,
+              // keys will cause some problems (section 2.14)
+              //  key: state.pageKey,
+              pageBuilder: (context, state) => const MaterialPage(
                 fullscreenDialog: true,
-                child: const ShoppingCartScreen(),
+                child: ShoppingCartScreen(),
               ),
               routes: [
                 GoRoute(
@@ -60,10 +61,9 @@ final goRouter = GoRouter(
               name: AppRoutes.orders.name,
               // builder will use the default page transitions
               // builder: (context, state) => const ShoppingCartScreen(),
-              pageBuilder: (context, state) => MaterialPage(
-                key: state.pageKey,
+              pageBuilder: (context, state) => const MaterialPage(
                 fullscreenDialog: true,
-                child: const OrdersListScreen(),
+                child: OrdersListScreen(),
               ),
             ),
             GoRoute(
@@ -71,10 +71,9 @@ final goRouter = GoRouter(
               name: AppRoutes.account.name,
               // builder will use the default page transitions
               // builder: (context, state) => const ShoppingCartScreen(),
-              pageBuilder: (context, state) => MaterialPage(
-                key: state.pageKey,
+              pageBuilder: (context, state) => const MaterialPage(
                 fullscreenDialog: true,
-                child: const AccountScreen(),
+                child: AccountScreen(),
               ),
             ),
             GoRoute(
@@ -82,10 +81,9 @@ final goRouter = GoRouter(
               name: AppRoutes.signIn.name,
               // builder will use the default page transitions
               // builder: (context, state) => const ShoppingCartScreen(),
-              pageBuilder: (context, state) => MaterialPage(
-                key: state.pageKey,
+              pageBuilder: (context, state) => const MaterialPage(
                 fullscreenDialog: true,
-                child: const EmailPasswordSignInScreen(
+                child: EmailPasswordSignInScreen(
                   formType: EmailPasswordSignInFormType.signIn,
                 ),
               ),
@@ -107,7 +105,6 @@ final goRouter = GoRouter(
                       pageBuilder: (context, state) {
                         final productId = state.pathParameters['id']!;
                         return MaterialPage(
-                          key: state.pageKey,
                           fullscreenDialog: true,
                           child: LeaveReviewScreen(
                             productId: productId,
