@@ -11,10 +11,12 @@ class FakeAuthRepo {
   // Stream<AppUser?> authStateChanges() => Stream.value(null);
   // AppUser? get currentUser => null;
 
-  Future<void> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    // required String email,
+    // required String password,
+    // }) async {
+    // await Future.delayed(const Duration(seconds: 3));
+    // throw Exception('Connection failed');
     if (currentUser == null) {
       _createNewUser(email);
     }
@@ -28,6 +30,8 @@ class FakeAuthRepo {
   }
 
   Future<void> signOut() async {
+    // await Future.delayed(const Duration(seconds: 3));
+    // throw Exception('Connection failed');
     _authState.value = null;
   }
 

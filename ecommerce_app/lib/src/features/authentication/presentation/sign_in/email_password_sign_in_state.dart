@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Form type for email & password authentication
 enum EmailPasswordSignInFormType { signIn, register }
@@ -17,26 +18,35 @@ mixin EmailAndPasswordValidators {
 class EmailPasswordSignInState with EmailAndPasswordValidators {
   EmailPasswordSignInState({
     this.formType = EmailPasswordSignInFormType.signIn,
-    this.isLoading = false,
+    // this.isLoading = false,
+    this.value = const AsyncValue.data(null),
   });
 
   final EmailPasswordSignInFormType formType;
-  final bool isLoading;
+  // final bool isLoading;
+  final AsyncValue<void> value;
+
+  bool get isLoading => value.isLoading;
 
   EmailPasswordSignInState copyWith({
     EmailPasswordSignInFormType? formType,
-    bool? isLoading,
+    // bool? isLoading,
+    AsyncValue<void>? value,
   }) {
     return EmailPasswordSignInState(
       formType: formType ?? this.formType,
-      isLoading: isLoading ?? this.isLoading,
+      // isLoading: isLoading ?? this.isLoading,
+      value: value ?? this.value,
     );
   }
 
   @override
-  String toString() {
-    return 'EmailPasswordSignInState(formType: $formType, isLoading: $isLoading)';
-  }
+   String toString() =>
+   'EmailPasswordSignInState(formType: $formType, value: $value)';
+      // 'EmailPasswordSignInState(formType: $formType, isLoading: $isLoading)';
+  // String toString() {
+  //   return 'EmailPasswordSignInState(formType: $formType, isLoading: $isLoading)';
+  // }
 
   @override
   bool operator ==(Object other) {
@@ -44,13 +54,15 @@ class EmailPasswordSignInState with EmailAndPasswordValidators {
 
     return other is EmailPasswordSignInState &&
         other.formType == formType &&
-        other.isLoading == isLoading;
+        // other.isLoading == isLoading;
+        other.value == value;
   }
 
   @override
-  int get hashCode {
-    return formType.hashCode ^ isLoading.hashCode;
-  }
+  int get hashCode => formType.hashCode ^ value.hashCode;
+  // int get hashCode {
+  //   return formType.hashCode ^ isLoading.hashCode;
+  // }
 }
 
 extension EmailPasswordSignInStateX on EmailPasswordSignInState {
